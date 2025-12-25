@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <title>Comenzi - Travel Agency</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Roboto, sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+            margin: 0;
+        }
+
+        header {
+            background: linear-gradient(90deg, #0ea5e9, #38bdf8);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        .container {
+            width: 85%;
+            margin: 40px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        th {
+            background-color: #0ea5e9;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f1f5f9;
+        }
+
+        tr:hover {
+            background-color: #e0f2fe;
+        }
+
+        form {
+            margin-top: 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input {
+            padding: 8px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            width: 100%;
+        }
+
+        button {
+            grid-column: span 2;
+            background: #0ea5e9;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #0284c7;
+        }
+
+        .message {
+            margin-top: 15px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .success {
+            color: #059669;
+        }
+
+        .error {
+            color: #dc2626;
+        }
+
+        a.back {
+            display: block;
+            text-align: center;
+            margin-top: 30px;
+            color: #0ea5e9;
+            text-decoration: none;
+        }
+
+        a.back:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>🧾 Comenzi - Travel Agency</h1>
+</header>
+
+<div class="container">
+
+    <h2>Comenzi existente</h2>
+
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Client</th>
+            <th>ID Tur</th>
+            <th>Nr. adulți</th>
+            <th>Nr. copii</th>
+            <th>Preț total</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="order : ${orders}">
+            <td th:text="${order.id}"></td>
+            <td th:text="${order.customerName}"></td>
+            <td th:text="${order.tour != null ? order.tour.id : 'N/A'}"></td>
+            <td th:text="${order.numberOfAdults}"></td>
+            <td th:text="${order.numberOfChildren}"></td>
+            <td th:text="${order.totalPrice} + ' €'"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h2>Plasează o nouă comandă</h2>
+
+    <form th:action="@{/orders-view/buy}" th:object="${buyOrderRequest}" method="post">
+        <div>
+            <label for="customerName">Nume client:</label>
+            <input type="text" id="customerName" th:field="*{customerName}" required>
+        </div>
+        <div>
+            <label for="tourId">ID Tur:</label>
+            <input type="number" id="tourId" th:field="*{tourId}" required>
+        </div>
+        <div>
+            <label for="numAdults">Număr adulți:</label>
+            <input type="number" id="numAdults" th:field="*{numAdults}" required>
+        </div>
+        <div>
+            <label for="numChildren">Număr copii:</label>
+            <input type="number" id="numChildren" th:field="*{numChildren}" required>
+        </div>
+        <button type="submit">Cumpără turul</button>
+    </form>
+
+    <div class="message success" th:if="${successMessage}" th:text="${successMessage}"></div>
+    <div class="message error" th:if="${errorMessage}" th:text="${errorMessage}"></div>
+
+    <a class="back" th:href="@{/}">← Înapoi la pagina principală</a>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Locations - Futuristic</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap');
+
+        body {
+            font-family: 'Orbitron', sans-serif;
+            background: linear-gradient(135deg, #0f1f0f, #1e2f1e 60%, #334133),
+            url('https://images.unsplash.com/photo-1541447275965-54bcb7c2dbf6?auto=format&fit=crop&w=1950&q=80') no-repeat center center/cover;
+            color: #e0ffe0;
+            margin: 0;
+            padding: 30px;
+            overflow-x: hidden;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        button {
+            border-radius: 50px;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: 700;
+            border: 2px solid rgba(0,255,128,0.5);
+            background: rgba(0,255,128,0.15);
+            color: #e0ffe0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            background: rgba(0,255,128,0.3);
+            transform: scale(1.05);
+            color: #fff;
+        }
+
+        .add-btn {
+            border-color: rgba(0,200,100,0.5);
+            background: rgba(0,200,100,0.15);
+        }
+
+        .add-btn:hover {
+            background: rgba(0,200,100,0.3);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 40px;
+            background: linear-gradient(90deg, #00ff80, #00cc66);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px rgba(0,255,128,0.6);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 15px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            background: rgba(0,50,0,0.4);
+            box-shadow: 0 0 25px rgba(0,255,128,0.25);
+        }
+
+        th {
+            background: linear-gradient(90deg, #00ff80, #00cc66);
+            color: #000;
+            padding: 12px 10px;
+            text-align: center;
+        }
+
+        td {
+            padding: 12px 10px;
+            border-bottom: 1px solid rgba(0,255,128,0.2);
+            text-align: center;
+        }
+
+        tr:hover {
+            background: rgba(0,255,128,0.1);
+        }
+
+        .delete-link {
+            color: #ff4d4d;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .delete-link:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            button { padding: 8px 16px; font-size: 13px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="top-bar">
+    <a th:href="@{/home}"><button type="button">🏠 Home</button></a>
+    <a th:href="@{/view/locations/add}"><button class="add-btn" type="button">➕ Add New Location</button></a>
+</div>
+
+<h1>🌍 List of Locations</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>City</th>
+        <th>Country</th>
+        <th>Continent</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="loc : ${locations}">
+        <td th:text="${loc.id}"></td>
+        <td th:text="${loc.city}"></td>
+        <td th:text="${loc.country}"></td>
+        <td th:text="${loc.continent}"></td>
+        <td>
+            <a class="delete-link" th:href="@{'/view/locations/delete/' + ${loc.id}}">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

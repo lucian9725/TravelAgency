@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <title>Hoteluri</title>
+    <style>
+        body { font-family:"Segoe UI", sans-serif; background:#f4f7fb; margin:0; color:#1e293b; }
+        header { background: linear-gradient(90deg,#0077b6,#00b4d8); color:white; padding:20px; text-align:center; position:relative; }
+        header h1{ margin:0; }
+        nav a{ color:white; margin:0 15px; text-decoration:none; font-weight:600;}
+        nav a:hover{ opacity:0.85; }
+        main{ max-width:1200px; margin:40px auto; padding:0 20px;}
+        table{ width:100%; border-collapse:collapse; background:white; border-radius:12px; overflow:hidden; box-shadow:0 4px 12px rgba(0,0,0,0.1);}
+        th, td{ padding:15px; text-align:left; }
+        th{ background:#00b4d8; color:white; text-transform:uppercase; }
+        tr:nth-child(even){ background:#f1f9ff; }
+        tr:hover{ background:#caf0f8; }
+        .btn-back, .btn-home{
+            display:inline-block;
+            margin:20px 10px;
+            text-decoration:none;
+            color:white;
+            background:#0077b6;
+            padding:10px 20px;
+            border-radius:8px;
+            transition: background-color 0.3s ease;
+        }
+        .btn-back:hover, .btn-home:hover{ background:#023e8a; }
+        footer{ background:#0077b6; color:white; text-align:center; padding:15px; margin-top:40px; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Lista Hotelurilor</h1>
+    <nav>
+        <a href="/">Acasă</a>
+        <a href="/hotels-view">Hoteluri</a>
+    </nav>
+</header>
+
+<main>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nume Hotel</th>
+            <th>Standard</th>
+            <th>Descriere</th>
+            <th>Oraș</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="hotel : ${hotels}">
+            <td th:text="${hotel.id}"></td>
+            <td th:text="${hotel.hotelName}"></td>
+            <td th:text="${hotel.standard}"></td>
+            <td th:text="${hotel.description}"></td>
+            <td th:text="${hotel.location != null ? hotel.location.city : 'N/A'}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div style="text-align:center;">
+        <a href="/" class="btn-back">⬅ Înapoi acasă</a>
+        <a href="/home" class="btn-home">🏠 Pagina Home</a>
+    </div>
+</main>
+
+<footer>
+    © 2025 Travel Agency
+</footer>
+</body>
+</html>

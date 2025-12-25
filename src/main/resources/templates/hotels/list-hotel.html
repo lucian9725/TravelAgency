@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista Hoteluri - Futuristic</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap');
+
+        body {
+            background: linear-gradient(to bottom right, #2e3a59, #5e4b80),
+            url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1950&q=80') no-repeat center center/cover;
+            color: #f0f0f0;
+            font-family: 'Orbitron', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .top-bar {
+            padding: 15px;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 20px rgba(255, 50, 200,0.25);
+        }
+
+        .top-bar button {
+            border-radius: 50px;
+            padding: 10px 25px;
+            border: 2px solid rgba(255, 50, 200,0.5);
+            background: rgba(255,255,255,0.08);
+            color: #ff7cf0;
+            font-weight: 700;
+            font-family: 'Orbitron', sans-serif;
+            transition: 0.3s;
+        }
+
+        .top-bar button:hover {
+            background: rgba(255,50,200,0.3);
+            color: #fff;
+            transform: scale(1.05);
+        }
+
+        .container {
+            backdrop-filter: blur(12px);
+            background: rgba(255, 50, 200, 0.15);
+            border-radius: 25px;
+            padding: 50px;
+            margin-top: 50px;
+            box-shadow: 0 0 50px rgba(255, 50, 200, 0.35);
+            position: relative;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 3rem;
+            background: linear-gradient(90deg, #ff5ce6, #9b30ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 2px;
+            text-shadow: 0 0 15px rgba(255, 92, 230,0.5);
+        }
+
+        .btn-futuristic {
+            border-radius: 50px;
+            padding: 12px 30px;
+            font-weight: 700;
+            font-family: 'Orbitron', sans-serif;
+            backdrop-filter: blur(6px);
+            border: 2px solid rgba(255, 50, 200,0.6);
+            background: rgba(255,50,200,0.15);
+            color: #f0f0f0;
+            transition: 0.3s;
+        }
+
+        .btn-futuristic:hover {
+            transform: scale(1.08);
+            background: rgba(255,50,200,0.3);
+            border-color: #ff5ce6;
+            color: #fff;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 20px;
+            overflow: hidden;
+            backdrop-filter: blur(12px);
+            background: rgba(128, 0, 128, 0.3); /* violet mai deschis, futurist */
+            box-shadow: 0 0 25px rgba(255, 50, 200, 0.35);
+        }
+
+        th, td {
+            text-align: center;
+            vertical-align: middle;
+            color: #fff;
+            font-weight: 500;
+            padding: 12px 10px;
+        }
+
+        thead {
+            background: linear-gradient(90deg, #ff5ce6, #9b30ff);
+            color: #fff;
+            text-shadow: 0 0 5px rgba(0,0,0,0.3);
+        }
+
+        tr:hover {
+            background: rgba(255,92,230,0.1);
+        }
+
+        .background-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1950&q=80') no-repeat center center/cover;
+            opacity: 0.08;
+            z-index: -1;
+            border-radius: 25px;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            .btn-futuristic { padding: 10px 20px; font-size: 0.95rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="top-bar">
+    <a th:href="@{/home}"><button>Home</button></a>
+</div>
+
+<div class="container">
+    <div class="background-image"></div>
+
+    <h1>Lista Hoteluri</h1>
+
+    <a href="/view/hotels/add" class="btn btn-success btn-futuristic mb-4">Adaugă Hotel Nou</a>
+
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nume Hotel</th>
+            <th>Standard</th>
+            <th>Descriere</th>
+            <th>Oraș / Țară</th>
+            <th>Acțiuni</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="hotel : ${hotels}">
+            <td th:text="${hotel.id}"></td>
+            <td th:text="${hotel.hotelName}"></td>
+            <td th:text="${hotel.standard}"></td>
+            <td th:text="${hotel.description}"></td>
+            <td th:text="${hotel.location != null ? hotel.location.city + ' / ' + hotel.location.country : 'N/A'}"></td>
+            <td>
+                <a th:href="@{'/view/hotels/delete/' + ${hotel.id}}" class="btn btn-danger btn-sm btn-futuristic">Șterge</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

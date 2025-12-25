@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Location</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        body {
+            font-family: "Segoe UI", Roboto, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 25px;
+        }
+
+        form {
+            background: white;
+            padding: 30px 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 350px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #444;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        button {
+            background-color: #007bff;
+            border: none;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #007bff;
+            font-weight: 500;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .home-link {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+
+        .home-link button {
+            background-color: #28a745;
+        }
+
+        .home-link button:hover {
+            background-color: #1e7e34;
+        }
+    </style>
+</head>
+<body>
+
+<!-- 🔹 Buton de Home -->
+<div class="home-link">
+    <a th:href="@{/home}">
+        <button type="button">🏠 Home</button>
+    </a>
+</div>
+
+<h1>➕ Add New Location</h1>
+
+<form th:action="@{/view/locations/add}" th:object="${location}" method="post">
+    <label for="city">City:</label>
+    <input type="text" id="city" th:field="*{city}" required>
+
+    <label for="country">Country:</label>
+    <input type="text" id="country" th:field="*{country}" required>
+
+    <label for="continent">Continent:</label>
+    <input type="text" id="continent" th:field="*{continent}">
+
+    <button type="submit">💾 Save</button>
+</form>
+
+<a th:href="@{/view/locations}">⬅ Back to List</a>
+
+</body>
+</html>

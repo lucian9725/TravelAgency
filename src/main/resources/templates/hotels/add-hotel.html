@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <title>Adaugă Hotel - Travel Agency</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container mt-5">
+    <h2 class="mb-4">Adaugă Hotel</h2>
+    <form th:action="@{/view/hotels/add}" th:object="${hotel}" method="post">
+        <div class="mb-3">
+            <label class="form-label">Nume Hotel</label>
+            <input type="text" class="form-control" th:field="*{hotelName}" placeholder="Numele hotelului" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Standard (stele)</label>
+            <input type="number" class="form-control" th:field="*{standard}" placeholder="1-5" min="1" max="5" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Descriere</label>
+            <textarea class="form-control" th:field="*{description}" rows="3" placeholder="Descriere hotel"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Locație</label>
+            <select class="form-select" th:field="*{location.id}" required>
+                <option value="" disabled selected>Alege locația</option>
+                <option th:each="loc : ${locations}"
+                        th:value="${loc.id}"
+                        th:text="${loc.city + ' / ' + loc.country}">
+                </option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Adaugă Hotel</button>
+        <a href="/view/hotels" class="btn btn-secondary">Înapoi la listă</a>
+    </form>
+</div>
+
+</body>
+</html>
